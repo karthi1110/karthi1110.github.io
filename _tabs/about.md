@@ -12,7 +12,7 @@ I currently work for <a href="https://careers.swiggy.com/#/about" target="_blank
 
 In my freetime, I enjoy playing <a href="https://www.youtube.com/watch?v=NmZ77Yn3Fr4" target="_blank">Ultimate Frisbee</a>, tinkering with gadgets, and learning new things.
 
-Favorite quote: Make the easy things simple, and the hard things possible. - Larry Wall
+**Favorite quote:** Make the easy things simple, and the hard things possible - Larry Wall
 
 ### Let’s Connect
 * 📧 [karthikn1110@gmail.com](karthikn1110@gmail.com)
