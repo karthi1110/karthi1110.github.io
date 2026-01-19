@@ -120,7 +120,7 @@ comments:
     issue_term: # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    repo: karthi1110/karthi1110.github.io.git # <gh-username>/<repo>
+    repo: karthi1110/karthi1110.github.io # <gh-username>/<repo>
     repo_id: "R_kgDOQ8LVNw"
     category: "General"
     category_id: "DIC_kwDOQ8LVN84C1H2J"
