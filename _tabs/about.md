@@ -14,8 +14,9 @@ On this site, I write about:
 
 - Projects that I am working on or have worked on.
 - Things that I have figured out - hopefully to save others some time.
+- Other cool stuff I discover along the way.
 
-**Favorite quote:** Make the easy things simple, and the hard things possible - Larry Wall
+**Favorite quote :** Make the easy things simple, and the hard things possible - Larry Wall
 
 ### Let’s Connect
 * 📧 [karthikn1110@gmail.com](karthikn1110@gmail.com)

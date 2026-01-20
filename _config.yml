@@ -19,7 +19,7 @@ title: Karthikeyan Gopi # the main title
 tagline: Devops | SRE | System Architect # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
-  Devops blog posts where I share my experience and thoughts on various topics related to Devops, SRE and System Architecture.
+  On this blog, I share insights from my journey in DevOps and SRE, covering everything from projects I'm actively working on to hard-won solutions that hopefully save you some debugging time. You'll find practical guides on cloud infrastructure, Kubernetes, CI/CD pipelines, monitoring and observability, automation, and the occasional deep dive into interesting problems I've solved. I aim to document the real-world experiences and lessons learned from building and maintaining reliable systems at scale.
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
