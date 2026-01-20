@@ -19,5 +19,8 @@ On this site, I write about:
 **Favorite quote :** Make the easy things simple, and the hard things possible - Larry Wall
 
 ### Let’s Connect
-* 📧 [karthikn1110@gmail.com](karthikn1110@gmail.com)
 * 💼 <a href="https://www.linkedin.com/in/karthikn1110/" target="_blank">LinkedIn</a> - Professional network
+
+### Subscribe to My Newsletter
+
+<iframe src="https://karthikeyangopi.substack.com/embed" width="480" height="250" frameborder="0" scrolling="no"></iframe>

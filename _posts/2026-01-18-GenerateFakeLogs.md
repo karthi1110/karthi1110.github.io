@@ -289,3 +289,10 @@ Follow these **log generation best practices** for effective **log aggregation t
 3. Integrate **generated logs** with your log shipping agents
 4. Monitor system performance and adjust **log generation rates**
 5. Implement log rotation and cleanup procedures for **fake logs**
+
+---
+<h3 style="text-align:center;"> Subscribe to My Newsletter </h3>
+
+<div style="text-align: center;">
+<iframe src="https://karthikeyangopi.substack.com/embed" width="480" height="250" frameborder="0" scrolling="no"></iframe>
+</div>
