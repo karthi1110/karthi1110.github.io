@@ -21,6 +21,6 @@ On this site, I write about:
 ### Let’s Connect
 * 💼 <a href="https://www.linkedin.com/in/karthikn1110/" target="_blank">LinkedIn</a> - Professional network
 
-### Subscribe to My Newsletter
+### Subscribe to Level Up your Learning
 
 <iframe src="https://karthikeyangopi.substack.com/embed" width="480" height="250" frameborder="0" scrolling="no"></iframe>
