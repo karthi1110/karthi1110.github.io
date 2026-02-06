@@ -1,11 +1,19 @@
 ---
-title: Enabling Rate Limits using Envoy Filter in Istio
-description: Learn how to implement global rate limiting in Istio using Envoy Filters 
+title: Global Rate Limiting in Istio with Envoy Filters
+description: A practical, production-ready guide to protecting your services with Envoy’s global rate limit service
 date: 2026-02-03 10:00:00 +0530
 categories: [devops, kubernetes]
 tags: [istio, rate-limiting, envoy-filter]     # TAG names should always be lowercase
 mermaid: true
 ---
+You don’t need a malicious attacker to take down your services.
+A bug in a single internal client, a misconfigured CronJob, or an over-eager retry policy can generate enough traffic to overload your mesh.
+
+In this post, we’ll build a global rate limiting setup in Istio using Envoy Filters + a Redis-backed rate limit service. By the end, you’ll have:
+
+- A working global rate limiter on your ingress gateway
+- Configurable path-based limits
+- A mental model of how Envoy’s HTTP filter chain and the rate limit service fit together
 
 ## What is Rate Limiting?
 
@@ -103,6 +111,10 @@ flowchart LR
 ### what is istio Envoy filter? 
 - Swiss army knife of customizing Istio proxy (envoy) configuration
 - For when the native Istio CRDs (VirtualService, DestinationRules) do not provide enough control over envoy configuration.
+- Under the hood, Istio generates Envoy configs for you. An EnvoyFilter is a way to patch those generated configs, so you can:
+
+    - Insert new HTTP filters (like the global rate limit filter)
+    - Modify routes, clusters, listeners, etc. without abandoning the rest of Istio’s abstractions.
 
 ## Prerequisites
 - Setup Istio in a Kubernetes cluster by following the instructions in the <a href="https://istio.io/latest/docs/setup/getting-started/" target="_blank">Installation Guide</a>.
@@ -144,7 +156,7 @@ spec:
         host: httpbin.default.svc.cluster.local
 ```
 
-## Implimenting Global Rate Limiting
+## Implementing Global Rate Limiting
 
 **Step 1: Configure the Rate Limit Rules**
 
@@ -254,7 +266,8 @@ spec:
         # Applies the rate limit rules.
         value:
           rate_limits:
-            - actions: # any actions in here
+            - actions:
+              - remote_address: {}
               - request_headers:
                   header_name: ":path"
                   descriptor_key: "PATH"
@@ -391,6 +404,8 @@ The `domain` in your EnvoyFilter must exactly match the `domain` in your ConfigM
 **Pitfall #4: Not monitoring the rate limiter**
 The rate limit service is now a critical component. Monitor its availability and latency. If it goes down with `failure_mode_deny: true`, all traffic gets blocked.
 
+In production, you may want to start with `failure_mode_deny: false` while you harden and monitor the rate limit service. That way, a failure in the rate limit service fails open (no rate limiting, but requests still flow) instead of closed (all traffic blocked).
+
 ## Performance Considerations
 
 **Redis is your bottleneck**: Every request triggers a Redis query. For high-traffic scenarios:
@@ -398,15 +413,22 @@ The rate limit service is now a critical component. Monitor its availability and
 - Consider Redis persistence (RDB/AOF) to survive restarts
 - Monitor Redis memory usage - rate limit counters accumulate
 
-## What's Next?
+## Wrapping Up
 
-Now that you have global rate limiting working:
+We started with a simple goal: protect the entire mesh from bad or bursty traffic without rewriting every service.
+
+You now have:
+
+- A global rate limit service wired into the Istio ingress gateway via EnvoyFilters
+- Path-based limits (`/get` vs `/`) enforced centrally
+- A clear picture of how Envoy’s HTTP filter chain and rate limit descriptors work together
+
+To turn this from “PoC” into “production”:
 
 1. **Add observability**: Export rate limit metrics to Prometheus and create Grafana dashboards
 2. **Implement dynamic limits**: Use Envoy's runtime configuration to adjust limits without redeploying
 3. **Test failure scenarios**: What happens when Redis goes down? When the rate limit service is slow?
-
-The configuration you've built today is production-ready, but production is where the real learning begins. Monitor your rate limits, tune them based on actual traffic patterns, and iterate.
+4. **Scale Redis appropriately**: Use Redis Cluster or a managed service and monitor CPU, memory, and key cardinality
 
 ## Related resources
 - <a href="https://istio.io/latest/docs/tasks/policy-enforcement/rate-limit/#rate-limits" target="_blank">Istio Rate Limiting Documentation</a>
