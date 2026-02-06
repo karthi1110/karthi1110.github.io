@@ -160,7 +160,7 @@ spec:
 
 **Step 1: Configure the Rate Limit Rules**
 
-Use the following configmap to configure the reference implementation to rate limit requests to the path `/get` at 5 req/min and `/` at 3 req/min. Its a prerequisite to have configmap for the global ratelimiting service deployment.
+Use the following configmap to configure the reference implementation to rate limit requests to the path `/get` at 5 req/min/ip and `/` at 3 req/min/ip. Its a prerequisite to have configmap for the global ratelimiting service deployment.
 
 ```yaml
 apiVersion: v1
@@ -401,7 +401,12 @@ If your EnvoyFilter uses `name: gateway` but your ingress gateway has label `ist
 **Pitfall #3: Domain mismatch**
 The `domain` in your EnvoyFilter must exactly match the `domain` in your ConfigMap. A mismatch means no rate limiting happens (and no error messages).
 
-**Pitfall #4: Not monitoring the rate limiter**
+**Pitfall #4: Descriptor order mismatch**
+The descriptors in your EnvoyFilter's `rate_limits.actions` must match the descriptor hierarchy in your ConfigMap **in the exact same order**. 
+
+For example, if your EnvoyFilter sends descriptors in order `[remote_address, PATH]`, your ConfigMap must have `remote_address` as the parent key with `PATH` nested inside. If the order doesn't match or keys are missing, the rate limit service won't find a matching rule and won't enforce limits. Always verify the descriptor chain matches between both configurations.
+
+**Pitfall #5: Not monitoring the rate limiter**
 The rate limit service is now a critical component. Monitor its availability and latency. If it goes down with `failure_mode_deny: true`, all traffic gets blocked.
 
 In production, you may want to start with `failure_mode_deny: false` while you harden and monitor the rate limit service. That way, a failure in the rate limit service fails open (no rate limiting, but requests still flow) instead of closed (all traffic blocked).
