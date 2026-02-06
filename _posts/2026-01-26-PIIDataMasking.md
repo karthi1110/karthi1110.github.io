@@ -2,7 +2,7 @@
 title: How to Mask Sensitive Information Using Fluentd/Fluent Bit
 description: Learn how to automatically mask PII, passwords, and sensitive data in logs using Fluentd and Fluent Bit. Step-by-step guide with working examples and Docker testing setup.
 date: 2026-01-26 10:00:00 +0530
-categories: [devops, monitoring, logging]
+categories: [devops, logging]
 tags: [pii, data-masking, fluentd, fluent-bit]     # TAG names should always be lowercase
 ---
 

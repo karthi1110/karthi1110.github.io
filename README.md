@@ -31,6 +31,7 @@ Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wi
 
 ## Deploy to GitHub Pages
 bundle lock --add-platform x86_64-linux
+bundle exec jekyll s
 
 ## Contributing
 
